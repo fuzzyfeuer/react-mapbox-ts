@@ -10,14 +10,11 @@ const styleUrl = 'mapbox://styles/fuzzyfeuer/ck7253a9i10yk1iqwwak1tusc';
 
 // Map current position/zoom.
 export const initialValues = {
-    /* Bath */
-    //lat: 51.38,
-    //lng: -2.36,
-    //zoom: 14
-
     /* North Scotland */
-    lat: 58.99,
-    lng: -2.94,
+    center: {
+        lat: 58.99,
+        lng: -2.94
+    },
     zoom: 8
 };
 
@@ -33,7 +30,7 @@ export const initMapbox = (containerElem: HTMLElement): Map => {
         accessToken: accessToken,
         container: containerElem,
         style: styleUrl,
-        center: [values.lng, values.lat],
+        center: [values.center.lng, values.center.lat],
         zoom: values.zoom,
         antialias: true
     });

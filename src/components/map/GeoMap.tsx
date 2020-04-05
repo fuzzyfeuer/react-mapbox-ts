@@ -3,7 +3,7 @@ import { initMapbox } from './MapboxHelper';
 import { MapContext } from './MapContext';
 const { useRef, useEffect, useState } = React;
 
-interface IProps {
+interface Props {
     center?: number;
     viewport?: object;
 };
@@ -11,7 +11,7 @@ interface IProps {
 /**
  * Map component for rendering geographic layers (using the GeoJSON format).
  */
-const GeoMap: React.FunctionComponent<IProps> = (props) => {
+const GeoMap: React.FunctionComponent<Props> = (props) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [mbMap, setMbMap] = useState(null);
 

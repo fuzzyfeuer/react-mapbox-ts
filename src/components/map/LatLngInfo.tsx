@@ -7,31 +7,32 @@ const { useContext, useEffect, useState } = React;
  * Info overlay that shows the current latitude/longitude and zoom.
  */
 const LatLngInfo: React.FunctionComponent = () => {
-    //const { lat, lng, zoom } = values;
-    const lat = 10.1, lng = 20.2, zoom = 8;
     const [values, setValues] = useState(initialValues);
     const [callbackAdded, setCallbackAdded] = useState(false);
 
     const context = useContext(MapContext);
     const { mbMap } = context;
 
-    // add listening callback for moving/zooming.
+    const onMove = () => {
+        const pos = mbMap.getCenter();
+        const zoom = mbMap.getZoom();
+        setValues({ center: { lat: pos.lat, lng: pos.lng}, zoom });
+    };
+
+    // add callback for the map moving/zooming.
     useEffect(() => {
         if (mbMap !== null && !callbackAdded) {
-            mbMap.on('move', () => {
-                const pos = mbMap.getCenter();
-                const zoom = mbMap.getZoom();
-                setValues({ lat: pos.lat, lng: pos.lng, zoom });
-            });
+            mbMap.on('move', onMove);
             setCallbackAdded(true);
         }
     }, [mbMap]);
 
+    const { center, zoom } = values;
     return (
         <div className="lat-lng-info" >
-            (Lat <span>{values.lat.toFixed(4)}</span>,&nbsp;
-            Long <span>{values.lng.toFixed(4)}</span>)&nbsp;
-            Zoom <span>{values.zoom.toFixed(4)}</span>
+            (Lat <span>{center.lat.toFixed(4)}</span>,&nbsp;
+            Long <span>{center.lng.toFixed(4)}</span>)&nbsp;
+            Zoom <span>{zoom.toFixed(4)}</span>
         </div>
     );
 };

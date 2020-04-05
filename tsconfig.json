@@ -4,7 +4,9 @@
         "jsx": "react",
         "outDir": "./dist/",
         "module": "es6",
+        "moduleResolution": "node",
         "noImplicitAny": true,
+        "resolveJsonModule": true,
         "skipLibCheck": true,
         "sourceMap": true,
         "target": "es5"
